@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-texture">
+            <h1>Amazon Musical Instruments</h1> 
+            <div class="scrollable-content">
+               
+                
+
+                <!-- First Carousel -->
+                <h2 class="categories__title">Top 10</h2>
+                <section class="carousel">
+                    <div class="carousel__container">
+                        {% for product in top5 %}
+                        <div class="carousel-item">
+                            <form action="{{ url_for('show_prudact', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
+                                <button type="submit" class="carousel-item__button">
+                                    <img class="carousel-item__img" src="{{ product.images[0].large }}" alt="missing image" />
+                                    <div class="carousel-item__details">
+                                        <div class="controls"></div>
+                                        <h5 class="carousel-item__details--title">{{ product.title }}</h5>
+                                        <h6 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h6>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Second Carousel -->
+                <h2 class="categories__title">My List</h2>
+                <section class="carousel">
+                    <div class="carousel__container">
+                        {% for product in top5 %}
+                        <div class="carousel-item">
+                            <form action="{{ url_for('show_prudact', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
+                                <button type="submit" class="carousel-item__button">
+                                    <img class="carousel-item__img" src="{{ product.images[0].large }}" alt="missing image" />
+                                    <div class="carousel-item__details">
+                                        <div class="controls"></div>
+                                        <h5 class="carousel-item__details--title">{{ product.title }}</h5>
+                                        <h6 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h6>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
