@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: model_update
+spec:
+  schedule: "0 */12 * * *"  # Runs every 12 hours at the start of the hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: model_update
+            image: your-docker-image:latest  # Replace with your container image
+          restartPolicy: OnFailure

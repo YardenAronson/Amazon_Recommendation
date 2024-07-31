@@ -7,10 +7,19 @@
     <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="background-container">
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#Top10">Top10</a>
+        <a href="#MyList">MyList</a>
+        <a href="/" class="logout">Logout</a>
+    </div>
+
+    <div id="home" class="background-container">
         <div class="background-texture">
+            <br><br>
             <h1>Amazon Musical Instruments</h1> 
-            <div class="scrollable-content">
+            <div id="Top10" class="scrollable-content">
                
                 
 
@@ -18,15 +27,14 @@
                 <h2 class="categories__title">Top 10</h2>
                 <section class="carousel">
                     <div class="carousel__container">
-                        {% for product in top5 %}
+                        {% for product in top10 %}
                         <div class="carousel-item">
-                            <form action="{{ url_for('show_prudact', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
+                            <form action="{{ url_for('show_product', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
                                 <button type="submit" class="carousel-item__button">
                                     <img class="carousel-item__img" src="{{ product.images[0].large }}" alt="missing image" />
                                     <div class="carousel-item__details">
-                                        <div class="controls"></div>
-                                        <h5 class="carousel-item__details--title">{{ product.title }}</h5>
-                                        <h6 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h6>
+                                        <h2 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h2>
+                                        <h4 class="carousel-item__details--title">{{ product.title }}</h4>
                                     </div>
                                 </button>
                             </form>
@@ -36,18 +44,17 @@
                 </section>
 
                 <!-- Second Carousel -->
-                <h2 class="categories__title">My List</h2>
+                <h2 id="MyList" class="categories__title">My List</h2>
                 <section class="carousel">
                     <div class="carousel__container">
-                        {% for product in top5 %}
+                        {% for product in my_list %}
                         <div class="carousel-item">
-                            <form action="{{ url_for('show_prudact', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
+                            <form action="{{ url_for('show_product', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
                                 <button type="submit" class="carousel-item__button">
                                     <img class="carousel-item__img" src="{{ product.images[0].large }}" alt="missing image" />
                                     <div class="carousel-item__details">
-                                        <div class="controls"></div>
-                                        <h5 class="carousel-item__details--title">{{ product.title }}</h5>
-                                        <h6 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h6>
+                                        <h2 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h2>
+                                        <h4 class="carousel-item__details--title">{{ product.title }}</h4>
                                     </div>
                                 </button>
                             </form>

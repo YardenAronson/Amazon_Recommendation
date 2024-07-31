@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-inserter-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: data-inserter
+    spec:
+      containers:
+      - name: data-inserter
+        image: yardenaronson/insertmongo:1.2
+        env:
+        - name: MONGO_HOST
+          value: mongodb-service
+        - name: MONGO_PORT
+          value: "27017"
+      restartPolicy: Never
+  backoffLimit: 4
