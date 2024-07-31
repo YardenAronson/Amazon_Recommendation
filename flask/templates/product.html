@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link href="{{ url_for('static', filename='product.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+    <a href="/index">Home</a>
+    <a href="#product-details">Product Details</a>
+    <a href="#SimilarProduct">What's Next?</a>
+</div>
+  <div id="product-details" class="background-container">
+    <div class="background-texture">
+        <br><br>
+      <h1>Product Name</h1>
+    <div class="container">
+        <!-- Product Image Section -->
+        <div class="product-image">
+            <img src="{{ product.images[0].large }}" alt="missing image">
+        </div>
+       
+        
+        <!-- Product Details Section -->
+        <div class="product-details">
+            
+            <p class="category">Categories:  
+              <span>
+              {% for category in product.categories %}
+                  {{ category }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+              </span>
+            </p>
+            <p class="price">Item Weight: <span>{{ product.details['Item Weight'] }}</span></p>
+            <p class="description">Product Dimensions: <span>{{ product.details['Product Dimensions'] }}</span></p>
+            {% if product.details['color'] %} 
+            <p class="description">Color: <span>{{ product.details['color'] }}</span></p>
+            {% endif %}
+            <p class="description">Date First Available: <span>{{ product.details['Date First Available'] }}</span></p>
+            <p class="description">Avarage Rate: <span>{{ product.average_rating }}</span></p>
+            <p class="description">Number of Ratings: <span>{{ product.rating_number }}</span></p>
+            {% if product.price %} 
+            <p class="description">Price: <span>{{ product.price }}</span></p>
+            {% endif %}
+
+            <br>
+            <!-- Rating Section -->
+            <div class="rating">
+                <h3>Rate this Product:</h3>
+                <form>
+                <div class="rating-stars">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+                <button type="submit" class="back-button">Submit Rating</button>
+              </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Section -->
+    <div id="SimilarProduct" class="additional-content">
+        <!-- You can add more content here -->
+        <h2 class="categories__title">Given your interest in this product</h2>
+        <section class="carousel">
+            <div class="carousel__container">
+                {% for product in top10 %}
+                <div class="carousel-item">
+                    <form action="{{ url_for('show_product', parent_asin=product.parent_asin) }}" method="get" class="carousel-item__form">
+                        <button type="submit" class="carousel-item__button">
+                            <img class="carousel-item__img" src="{{ product.images[0].large }}" alt="missing image" />
+                            <div class="carousel-item__details">
+                                <h2 class="carousel-item__details--subtitle">{{ product.average_rating }}<i class="fas fa-star"></i></h2>
+                                <h4 class="carousel-item__details--title">{{ product.title }}</h4>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    </div></div>
+</body>
+</html>

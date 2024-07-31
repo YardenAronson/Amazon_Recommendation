@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-Service
+spec:
+  type: ClusterIP  
+  selector:
+    app: flask
+  ports:
+    - protocol: TCP
+      port: 5001       
+      targetPort: 5001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: flask
+        image: yardenaronson/frontend_html:1.6
+        ports:
+        - containerPort: 5001
